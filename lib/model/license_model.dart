@@ -1,9 +1,9 @@
-class License {
+class LicenseModel {
   final String name;
   final String url;
 
-  const License({required this.name, required this.url});
+  const LicenseModel({required this.name, required this.url});
 
-  factory License.fromJson(Map<String, dynamic> json) =>
-      License(name: json['name'], url: json['url']);
+  factory LicenseModel.fromJson(Map<String, dynamic> json) =>
+      LicenseModel(name: json['name'], url: json['url']);
 }
