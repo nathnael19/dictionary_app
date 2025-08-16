@@ -19,14 +19,14 @@ class DictionaryModel {
 
   factory DictionaryModel.fromJson(Map<String, dynamic> json) =>
       DictionaryModel(
-        word: json['word'],
-        phonetics: (json['phonetics'] as List)
+        word: json['word'] ?? "",
+        phonetics: (json['phonetics'] as List? ?? [])
             .map((e) => PhoneticModel.fromJson(e))
             .toList(),
-        meanings: (json['meanings'] as List)
+        meanings: (json['meanings'] as List? ?? [])
             .map((e) => MeaningModel.fromJson(e))
             .toList(),
-        license: json['license'],
-        sourceUrls: json['sourceUrl'],
+        license: LicenseModel.fromJson(json['license']),
+        sourceUrls: List<String>.from(json['sourceUrls'] ?? []),
       );
 }

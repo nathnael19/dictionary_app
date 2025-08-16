@@ -1,4 +1,7 @@
+import 'package:dictionary/cubit/dictionary_cubit.dart';
+import 'package:dictionary/cubit/dictionary_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -107,12 +110,41 @@ class MySearchDelegate extends SearchDelegate {
     icon: Icon(Icons.arrow_back_ios),
   );
 
+  // @override
+  // Widget buildResults(BuildContext context) => Scaffold(
+  //   body: Center(
+  //     child: Text(query, style: TextStyle(color: Colors.white, fontSize: 30)),
+  //   ),
+  // );
+
   @override
-  Widget buildResults(BuildContext context) => Scaffold(
-    body: Center(
-      child: Text(query, style: TextStyle(color: Colors.white, fontSize: 30)),
-    ),
-  );
+  Widget buildResults(BuildContext context) {
+    context.read<DictionaryCubit>().loadMeaning(query);
+
+    return BlocBuilder<DictionaryCubit, DictionaryState>(
+      builder: (context, state) {
+        if (state is DictionaryLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is DictionaryLoaded) {
+          return ListView.builder(
+            itemCount: state.dictionary.length,
+            itemBuilder: (context, index) {
+              final meaning = state.dictionary[index];
+              return Text(meaning.word);
+            },
+          );
+        } else if (state is DictionaryFailed) {
+          return Center(
+            child: Text(
+              state.msg,
+              style: const TextStyle(color: Colors.redAccent),
+            ),
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
+  }
 
   @override
   Widget buildSuggestions(BuildContext context) {

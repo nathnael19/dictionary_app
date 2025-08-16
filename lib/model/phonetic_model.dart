@@ -9,8 +9,10 @@ class PhoneticModel {
   PhoneticModel({required this.audio, this.sourceUrl, this.license, this.text});
 
   factory PhoneticModel.fromJson(Map<String, dynamic> json) => PhoneticModel(
-    audio: json['audio'],
-    license: json['license'],
+    audio: json['audio'] ?? "",
+    license: json['license'] != null
+        ? LicenseModel.fromJson(json['license'])
+        : null,
     sourceUrl: json['sourceUrl'],
     text: json['text'],
   );

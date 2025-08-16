@@ -1,7 +1,7 @@
 class DefinitionModel {
   final String definition;
-  final List<dynamic> synonyms;
-  final List<dynamic> antonyms;
+  final List<String> synonyms;
+  final List<String> antonyms;
   final String? example;
 
   DefinitionModel({
@@ -13,8 +13,9 @@ class DefinitionModel {
 
   factory DefinitionModel.fromJson(Map<String, dynamic> json) =>
       DefinitionModel(
-        definition: json['definition'],
-        synonyms: json['synonyms'],
-        antonyms: json['antonyms'],
+        definition: json['definition'] ?? "",
+        synonyms: List<String>.from(json['synonyms'] ?? []),
+        antonyms: List<String>.from(json['antonyms'] ?? []),
+        example: json['example'],
       );
 }

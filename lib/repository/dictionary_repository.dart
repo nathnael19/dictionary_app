@@ -1,25 +1,27 @@
 import 'dart:convert';
-
 import 'package:dictionary/model/dictionary_model.dart';
 import 'package:http/http.dart' as http;
 
 class DictionaryRepository {
   Future<List<DictionaryModel>> loadMeaning(String word) async {
-    String url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word";
+    final url = Uri.parse(
+      "https://api.dictionaryapi.dev/api/v2/entries/en/$word",
+    );
     try {
-      final jsonUrl = await http.get(Uri.parse(url));
+      final response = await http.get(url);
 
-      if (jsonUrl.statusCode == 200) {
-        List<dynamic> jsonMeaning = jsonDecode(jsonUrl.body);
-        List<DictionaryModel> meaning = jsonMeaning
-            .map((e) => DictionaryModel.fromJson(e))
-            .toList();
-        return meaning;
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((e) => DictionaryModel.fromJson(e)).toList();
+      } else if (response.statusCode == 404) {
+        throw Exception("No definition found for \"$word\"");
       } else {
-        throw Exception("Error Fetching Data!!");
+        throw Exception(
+          "Failed to fetch data. Status code: ${response.statusCode}",
+        );
       }
     } catch (e) {
-      throw Exception("Error");
+      throw Exception("Error fetching word: $e");
     }
   }
 }

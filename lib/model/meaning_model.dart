@@ -14,11 +14,11 @@ class MeaningModel {
   });
 
   factory MeaningModel.fromJson(Map<String, dynamic> json) => MeaningModel(
-    partOfSpeech: json['partOfSpeech'],
-    definitions: (json['definitions'] as List)
+    partOfSpeech: json['partOfSpeech'] ?? "",
+    definitions: (json['definitions'] as List? ?? [])
         .map((e) => DefinitionModel.fromJson(e))
         .toList(),
-    synonyms: json['synonyms'],
-    antonyms: json['antonyms'],
+    synonyms: List<String>.from(json['synonyms'] ?? []),
+    antonyms: List<String>.from(json['antonyms'] ?? []),
   );
 }
