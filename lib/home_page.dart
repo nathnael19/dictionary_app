@@ -65,6 +65,28 @@ class HomePage extends StatelessWidget {
 
 class MySearchDelegate extends SearchDelegate {
   List<String> suggestions = ["one", "two", "three", "four"];
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      appBarTheme: AppBarTheme(
+        backgroundColor: const Color(0xff0D1E25), // Search bar background
+        iconTheme: const IconThemeData(color: Colors.white), // Icons color
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        hintStyle: TextStyle(color: Colors.grey),
+        border: InputBorder.none, // Hint text color
+      ),
+      textTheme: theme.textTheme.copyWith(
+        titleLarge: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+        ), // Search text color
+      ),
+    );
+  }
+
   @override
   List<Widget>? buildActions(BuildContext context) => [
     IconButton(
@@ -87,8 +109,9 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) => Scaffold(
-    backgroundColor: Colors.white,
-    body: Center(child: Text(query)),
+    body: Center(
+      child: Text(query, style: TextStyle(color: Colors.white, fontSize: 30)),
+    ),
   );
 
   @override
@@ -103,7 +126,10 @@ class MySearchDelegate extends SearchDelegate {
       itemCount: suggestion.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(suggestion[index]),
+          title: Text(
+            suggestion[index],
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
           onTap: () {
             query = suggestion[index];
             showResults(context);

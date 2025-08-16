@@ -5,4 +5,8 @@ ThemeData themeData = ThemeData(
     backgroundColor: Color(0xff0D1E25),
     foregroundColor: Colors.white,
   ),
+  scaffoldBackgroundColor: Color(0xff0D1E25).withAlpha(150),
+  searchViewTheme: SearchViewThemeData(
+    backgroundColor: Color(0xff0D1E25).withAlpha(150),
+  ),
 );
