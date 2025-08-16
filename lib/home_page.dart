@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
 }
 
 class MySearchDelegate extends SearchDelegate {
+  List<String> suggestions = ["one", "two", "three", "four"];
   @override
   List<Widget>? buildActions(BuildContext context) => [
     IconButton(
@@ -50,7 +51,11 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestion = ["one", "two", "three", "four"];
+    List<String> suggestion = suggestions.where((search) {
+      final result = search.toLowerCase();
+      final input = query.toLowerCase();
+      return result.contains(input);
+    }).toList();
 
     return ListView.builder(
       itemCount: suggestion.length,
