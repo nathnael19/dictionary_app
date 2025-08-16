@@ -13,7 +13,7 @@ class DictionaryCubit extends Cubit<DictionaryState> {
       final dictionary = await dictionaryRepository.loadMeaning(word);
       emit(DictionaryLoaded(dictionary: dictionary));
     } catch (e) {
-      emit(DictionaryFailed(msg: e.toString()));
+      emit(DictionaryFailed(msg: "misspaled!!"));
     }
   }
 }
