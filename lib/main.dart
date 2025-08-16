@@ -1,4 +1,5 @@
 import 'package:dictionary/home_page.dart';
+import 'package:dictionary/theme_data.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: themeData,
       home: const HomePage(),
     );
   }
