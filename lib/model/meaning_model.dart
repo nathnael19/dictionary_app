@@ -15,7 +15,9 @@ class MeaningModel {
 
   factory MeaningModel.fromJson(Map<String, dynamic> json) => MeaningModel(
     partOfSpeech: json['partOfSpeech'],
-    definitions: json['definitions'],
+    definitions: (json['definitions'] as List)
+        .map((e) => DefinitionModel.fromJson(e))
+        .toList(),
     synonyms: json['synonyms'],
     antonyms: json['antonyms'],
   );
