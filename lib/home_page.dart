@@ -6,8 +6,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff0D1E25).withAlpha(150),
       appBar: AppBar(
-        title: Text("Dictionary"),
+        title: Text("Dicty"),
         actions: [
           IconButton(
             onPressed: () {
@@ -16,6 +17,47 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.search),
           ),
         ],
+      ),
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.all(20),
+          height: 200,
+          decoration: BoxDecoration(
+            color: Color(0xff0D1E25),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text("Word", style: TextStyle(color: Colors.white, fontSize: 30)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "n. (w3:d) a single unit of language that means somthing and can be spoken or written",
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "See more meanings ",
+                    style: TextStyle(color: Colors.lightBlue, fontSize: 15),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: MySearchDelegate(),
+                      );
+                    },
+                    icon: Icon(Icons.arrow_forward, color: Colors.lightBlue),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
